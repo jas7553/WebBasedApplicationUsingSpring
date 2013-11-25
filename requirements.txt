@@ -1,0 +1,15 @@
+gradle
+	Get
+		http://services.gradle.org/distributions/gradle-1.9-all.zip
+	Unzip to
+		/path/to/unzipped/directory
+	Update $PATH
+		PATH=$PATH:/path/to/unzipped/directory/gradle-1.9/bin
+
+tomcat 7
+	Install
+		sudo apt-get install tomcat7
+	Install directory
+		/usr/share/tomcat7/
+	Stop tomcat
+		sudo /usr/share/tomcat7/bin/shutdown.sh

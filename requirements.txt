@@ -13,3 +13,9 @@ tomcat 7
 		/usr/share/tomcat7/
 	Stop tomcat
 		sudo /usr/share/tomcat7/bin/shutdown.sh
+
+running
+	make
+		builds and runs the project
+	browser
+		http://localhost:8080

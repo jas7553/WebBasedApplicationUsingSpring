@@ -1,0 +1,69 @@
+buildscript {
+    repositories {
+        maven { url "http://repo.spring.io/libs-snapshot" }
+        mavenLocal()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:0.5.0.M4")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+
+configurations {
+    runtime
+    testCompile
+    ajc
+    aspects
+    aspectCompile
+    compile {
+    extendsFrom aspects
+    }
+}
+
+jar {
+    baseName = 'gs-serving-web-content'
+    version =  '0.1.0'
+}
+
+repositories {
+    mavenCentral()
+    maven { url "http://repo.spring.io/libs-milestone" }
+}
+
+compileJava {
+  sourceCompatibility="1.6"
+  targetCompatibility="1.6"
+  doLast{
+    ant.taskdef( resource:"org/aspectj/tools/ant/taskdefs/aspectjTaskdefs.properties", classpath: configurations.ajc.asPath)
+    
+    ant.iajc(source:"1.6", target:"1.6", destDir:sourceSets.main.output.classesDir.absolutePath, maxmem:"512m", fork:"true", aspectPath:{configurations.aspects.asPath},sourceRootCopyFilter:"**/.svn/*,**/*.java",classpath:"${configurations.compile.asPath};${configurations.aspectCompile.asPath}"){
+        sourceroots{
+          sourceSets.main.java.srcDirs.each{
+              pathelement(location:it.absolutePath)
+          }
+        }
+    }
+    
+  }
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web:0.5.0.M6")
+    compile("org.thymeleaf:thymeleaf-spring3:2.0.17")
+    testCompile("junit:junit:4.11")
+    ajc("org.aspectj:aspectjtools:1.6.11.RELEASE")
+    compile("org.aspectj:aspectjrt:1.6.10")
+    aspects("org.springframework:spring-aspects:3.2.2.RELEASE")
+    aspectCompile("javax.persistence:persistence-api:1.0")
+    aspectCompile("org.springframework:spring-tx:3.2.2.RELEASE")
+    aspectCompile("org.springframework:spring-orm:3.2.2.RELEASE")
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.8'
+}
+

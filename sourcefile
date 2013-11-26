@@ -1,0 +1,2 @@
+PATH=$PATH:~/git/WebBasedApplicationUsingSpring/gradle-1.9/bin
+export PATH

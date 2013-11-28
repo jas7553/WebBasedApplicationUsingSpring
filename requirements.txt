@@ -1,5 +1,5 @@
-PATH
-	"source sourcefile" adds the gradle bin directory into the path
+Setup
+	Run ". setup.sh" to begin.
 
 tomcat 7
 	Install

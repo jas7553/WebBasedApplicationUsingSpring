@@ -1,3 +1,6 @@
+/**
+ * @author Jason A Smith <jas7553>
+ */
 package controller;
 
 import java.io.IOException;
@@ -14,11 +17,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+/**
+ * Handle all things related to users creating and viewing posts in Message
+ * Central.
+ */
 @Controller
 public class MessageCentralControllerAdvised {
 
 	private static final String SESSION_ID = "SESSION_ID";
 
+	// Pre-populate Message Central with some posts
 	private static List<String> messages = new ArrayList<String>();
 
 	{
@@ -28,6 +36,7 @@ public class MessageCentralControllerAdvised {
 		messages.add("From {1}: +1");
 	}
 
+	// Home page for Message Central. Display all the existing messages.
 	@RequestMapping("/messagecentral")
 	public ModelAndView index(HttpServletResponse response,
 							  @CookieValue(value = SESSION_ID,
@@ -41,6 +50,8 @@ public class MessageCentralControllerAdvised {
 		return mav;
 	}
 
+	// Allow the user to post a new message. The new message is sent via a
+	// request parameter.
 	@RequestMapping(value = "/addmessage")
 	public ModelAndView addmessage(HttpServletResponse response,
 								   @CookieValue(value = SESSION_ID,
@@ -61,6 +72,8 @@ public class MessageCentralControllerAdvised {
 		return mav;
 	}
 
+	// Detail-view for a message. The user can see a single message at a time,
+	// rather than all the messages at once.
 	@RequestMapping(value = "/viewmessage", method = RequestMethod.GET)
 	public ModelAndView viewmessage(HttpServletResponse response,
 									@CookieValue(value = SESSION_ID,

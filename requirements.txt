@@ -1,3 +1,9 @@
+Github
+	To clone from Github
+		git clone https://github.com/jas7553/WebBasedApplicationUsingSpring.git
+	Move to correct directory
+		cd WebBasedApplicationUsingSpring
+
 Setup
 	Run ". setup.sh" to begin.
 
